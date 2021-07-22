@@ -13,7 +13,7 @@ export class AppController {
     return 'Hello';
   }
 
-  @Get('api/administrator')
+  @Get('api/administrator/')
   getAllAdministrators(): Promise<Administrator[]> {
     return this.administratorService.getAll();
   }

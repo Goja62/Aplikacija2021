@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseConfiguration } from 'config/DatabaseConfiguration';
-import { AppController } from './app.controller';
+import { AppController } from './controllers/app.controller';
 import { Administrator } from './entities/administrator.entity';
 import { ArticleFeature } from './entities/article-feature.entity';
 import { ArticlePrice } from './entities/article-price.entity';
@@ -13,12 +13,13 @@ import { Feature } from './entities/feature.entity';
 import { Order } from './entities/order.entity';
 import { Photo } from './entities/photo.entity';
 import { User } from './entities/user.entity';
-import { AdministratorService } from './services/administrator/administrator.service';
+import { AdministratorService } from './dtos/administrator/administrator.service';
+import { AdministratorController } from './controllers/api/administrator.controller';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'mysql',
+      type: 'mariadb',
       host: DatabaseConfiguration.hostname,
       port: 3306,
       username: DatabaseConfiguration.username,
@@ -41,18 +42,23 @@ import { AdministratorService } from './services/administrator/administrator.ser
     TypeOrmModule.forFeature([
       Administrator,
       ArticleFeature,
-        ArticlePrice,
-        Article,
-        CartArticle,
-        Cart,
-        Category,
-        Feature,
-        Order,
-        Photo,
-        User,
+      ArticlePrice,
+      Article,
+      CartArticle,
+      Cart,
+      Category,
+      Feature,
+      Order,
+      Photo,
+      User,
     ])
   ],
-  controllers: [AppController],
-  providers: [AdministratorService],
+  controllers: [
+    AppController,
+    AdministratorController
+  ],
+  providers: [
+    AdministratorService,
+  ],
 })
 export class AppModule {}

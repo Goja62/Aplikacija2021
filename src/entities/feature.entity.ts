@@ -1,3 +1,5 @@
+import { JoinTable } from "typeorm";
+import { ManyToMany } from "typeorm";
 import {
   Column,
   Entity,
@@ -8,6 +10,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { ArticleFeature } from "./article-feature.entity";
+import { Article } from "./article.entity";
 import { Category } from "./category.entity";
 
 @Index("uk_feature_name_category_id", ["name", "categoryId"], { unique: true })
@@ -39,6 +42,14 @@ export class Feature {
     (articleFeature) => articleFeature.feature
   )
   articleFeatures: ArticleFeature[];
+
+  @ManyToMany(type => Article, article => article.features)
+  @JoinTable({
+    name: "article_feature",
+    joinColumn: { name: "feature_id", referencedColumnName: "featureId" },
+    inverseJoinColumn: { name: "article_id", referencedColumnName: "articleId" }
+  })
+  articles: Article[];
 
   @ManyToOne(() => Category, 
   (category) => category.features, { onDelete: "RESTRICT", onUpdate: "CASCADE", }

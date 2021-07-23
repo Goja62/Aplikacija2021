@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Patch, Post } from "@nestjs/common";
 import { resolve } from "path/posix";
 import { AddAdministratorDto } from "src/dtos/administrator/add.administrator.dto";
-import { AdministratorService } from "src/dtos/administrator/administrator.service";
+import { AdministratorService } from "src/services/administrator/administrator.service";
 import { EditAdministratorDto } from "src/dtos/administrator/edit.administrator.dto";
 import { Administrator } from "src/entities/administrator.entity";
 import { ApiResponse } from "src/misc/api.response";

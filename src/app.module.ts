@@ -19,6 +19,7 @@ import { CategoryController } from './controllers/api/category.controller';
 import { CategoryService } from './services/category/category.service';
 import { ArticleService } from './services/article/article.service';
 import { ArticleController } from './controllers/api/article.controller.er';
+import { AuthController } from './controllers/api/auth.controller';
 
 @Module({
   imports: [
@@ -62,6 +63,7 @@ import { ArticleController } from './controllers/api/article.controller.er';
     AdministratorController,
     CategoryController,
     ArticleController,
+    AuthController,
   ],
   providers: [
     AdministratorService,

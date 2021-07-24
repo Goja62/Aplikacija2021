@@ -20,10 +20,10 @@ export class ArticleService extends TypeOrmCrudService<Article> {
 
     async createFullArticle(data: AddArticleDto): Promise<Article | ApiResponse> {
         let newArticle: Article = new Article();
-        newArticle.name        = data.name;
-        newArticle.categoryId  = data.categoryId;
-        newArticle.excerpt     = data.excerpt;
-        newArticle.description = data.description;
+        newArticle.name = data.name;
+        newArticle.categoryId = data.categoryId;
+        newArticle.excerpt = data.excerpt;
+        newArticle.description = data.excerpt;
 
         let savedArticle = await this.article.save(newArticle);
 
@@ -37,9 +37,9 @@ export class ArticleService extends TypeOrmCrudService<Article> {
             let newArticleFeature: ArticleFeature = new ArticleFeature();
             newArticleFeature.articleId = savedArticle.articleId;
             newArticleFeature.featureId = feature.featureId;
-            newArticleFeature.value     = feature.value;
+            newArticleFeature.value = feature.value
 
-            await this.articleFeature.save(newArticleFeature);
+            await this.articleFeature.save(newArticleFeature)
         }
 
         return await this.article.findOne(savedArticle.articleId, {

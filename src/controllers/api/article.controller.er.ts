@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post, UploadedFile, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Param, Post, Req, UploadedFile, UseInterceptors } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { Crud } from "@nestjsx/crud";
 import { AddArticleDto } from "src/dtos/article/add.article.dto";
@@ -86,13 +86,15 @@ export class ArticleController {
             fileFilter: (req, file, callback) => {
                 //Provera ekstenzije JPG, PNG
                 if (!file.originalname.toLowerCase().match(/\.(jpg|png)$/)) {
-                    callback(new Error('Bad file extension!'), false);
+                    req.fileFilterError = 'Bad file extension!'; 
+                    callback(null, false);
                     return;
                 }
 
                 // Provera tima sadržaja: jpeg, png (mimetype)
                 if (!(file.mimetype.includes('jpeg') || file.mimetype.includes('png'))) {
-                    callback(new Error('Bad file content!'), false);
+                    req.fileFilterError = 'Bad file content!';
+                    callback(null, false);
                     return;
                 }
 
@@ -105,9 +107,21 @@ export class ArticleController {
             }
         })
     )
-    async uploadPhoto(@Param('id') articleId: number, @UploadedFile() photo): Promise<Photo | ApiResponse> {
+    async uploadPhoto(
+        @Param('id') articleId: number, 
+        @UploadedFile() photo,
+        @Req() req
+    ): Promise<Photo | ApiResponse> {
         //Zapis u bazu podataka
         const newPhoto: Photo = new Photo();
+        if (req.fileFilterError) {
+            return new ApiResponse('error', -4002, req.fileFilterError)
+        }
+
+        if (!photo) {
+            return new ApiResponse('error', -4002, 'No file uploaded')
+        }
+
         newPhoto.articleId = articleId;
         newPhoto.imagePath = photo.filename;
 

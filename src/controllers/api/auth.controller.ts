@@ -56,5 +56,4 @@ export class AuthController {
 
         return new Promise(resolve => resolve(responseObject))
     }
-    
 }

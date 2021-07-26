@@ -64,7 +64,7 @@ export class Article {
     name: "is_promoted", 
     unsigned: true,
   })
-  isPromoted: boolean;
+  isPromoted: number;
 
   @Column({
     type: "timestamp",

@@ -48,11 +48,22 @@ import { RoleCheckedGuard } from "src/misc/role.checked.guard";
         }
     },
     routes: {
-        exclude: [ 
-            'updateOneBase',
-            'replaceOneBase',
-            'deleteOneBase',
-         ],
+       only: [
+           'getOneBase',
+           'getManyBase'
+       ],
+       createOneBase: {
+           decorators: [
+                UseGuards(RoleCheckedGuard),
+                AllowToRoles('administrator', 'user')
+           ]
+       },
+       createManyBase: {
+            decorators: [
+                UseGuards(RoleCheckedGuard),
+                AllowToRoles('administrator', 'user')
+           ]
+       }
     }
 })
 export class ArticleController {
@@ -61,7 +72,7 @@ export class ArticleController {
         public photoService: PhotoService,
     ) {}
 
-    @Post('createFull') //POST http://localhost:3000/api/article/createFull
+    @Post() //POST http://localhost:3000/api/article/
     @UseGuards(RoleCheckedGuard)
     @AllowToRoles('administrator')
      createFullArticle(@Body() data: AddArticleDto) {

@@ -14,7 +14,7 @@ Izmena dodate robe u korpi:
 1. Da li postoji u bazi podataka za korisnika otvorena korpa koja nije iskorišćena (za koju se ne vezuje porudžbina)?
     - Da: Da li postoji evidencija da je tražena roba dodata u korpu?
         - Da: Za tu evidenciju dodate robe menajamo količinu.
-        -Ne. Ne radimo ništa.
+        - Ne. Ne radimo ništa.
     - Ne: Ne radimo ništa
 
 2. Ako je u korpi korisnika za evidentiranu robu količina sada 0, treba da obrišemo tu evidenciju dodate robe iz korpe.

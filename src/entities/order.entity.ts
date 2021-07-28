@@ -36,10 +36,10 @@ export class Order {
   @Column({
     type: "enum",
     nullable: true,
-    enum: ["rejected", " accepted", "shift", "panding"],
+    enum: ["rejected", "accepted", "shiped", "panding"],
     default: () => "'panding'",
   })
-  status: "rejected" | " accepted" | "shift" | "panding" | null;
+  status: "rejected" | "accepted" | "shiped" | "panding" | null;
 
   @OneToOne(
     () => Cart, 
